@@ -2,7 +2,7 @@
 """
 Created on Wed Sep 16 10:46:48 2020
 
-@author: Anntara Khan, Max Sour
+@author: Anntara Khan, Max Sours
 """
 
 import numpy as np
