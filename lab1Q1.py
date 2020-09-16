@@ -2,7 +2,7 @@
 """
 Created on Mon Sep 14 12:21:56 2020
 
-@author: maxso
+@author: Max Sours, Anntara Khan
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,7 +12,8 @@ import matplotlib.pyplot as plt
 def apply_vector_to_scalar(mat, func):
     """
     Apply a function to each individual column of a matrix.
-
+    This is a helper function that makes my life easier.
+    
     Parameters
     ----------
     mat : n x m array of type t
