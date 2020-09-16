@@ -7,7 +7,7 @@ Created on Mon Sep 14 12:21:56 2020
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Part 1
+# Question 1
 
 def apply_vector_to_scalar(mat, func):
     """
@@ -32,6 +32,8 @@ def apply_vector_to_scalar(mat, func):
         result[i] = func(mat[:, i])
     return result
 
+#part (b)
+
 """
 FUNCTION mercury_orbit(x_0, v_0, delta_t, n):
     INPUTS x_0, v_0: 2x1 array of floats
@@ -50,6 +52,9 @@ FUNCTION mercury_orbit(x_0, v_0, delta_t, n):
         INCREMENT i
     PLOT v[0,:] vs. t, v[1,:] vs. t, x[1, :] vs x[0, :]
 """
+
+#part(c)
+
 def solar_orbit(x_0, v_0, delta_t, n):
     """
     Return plotting data for orbit of an object going around
@@ -77,7 +82,7 @@ def solar_orbit(x_0, v_0, delta_t, n):
     x = np.zeros((2, n))
     v = np.zeros((2, n))
     t = np.zeros(n)
-    mu =  39.5 #AU^3 yr^{-2} (mu = GM)
+    mu =  39.5 #AU^3 yr^{-2} (mu = GM_sun)
     x[:, 0] = x_0
     v[:, 0] = v_0
     t[0] = 0
@@ -117,7 +122,7 @@ def solar_orbit_first_correction(x_0, v_0, delta_t, n, alpha):
     x = np.zeros((2, n))
     v = np.zeros((2, n))
     t = np.zeros(n)
-    mu =  39.5 #AU^3 yr^{-2} (mu = GM)
+    mu =  39.5 #AU^3 yr^{-2} (mu = GM_sun)
     x[:, 0] = x_0
     v[:, 0] = v_0
     t[0] = 0
@@ -151,10 +156,29 @@ plt.title("Angular Momentum over time")
 plt.xlabel("Time (yr)")
 plt.ylabel("Angular momentum (AU^2 yr^{-1} * Mercury Mass)")
 plt.plot(t, apply_vector_to_scalar(x, np.linalg.norm) * apply_vector_to_scalar(v, np.linalg.norm))
-x_c, v_c, t_c = solar_orbit_first_correction(np.array([0.47, 0]), np.array([0, 8.17]), 0.0001, 10000, 0.01)
+x_c, v_c, t_c = solar_orbit_first_correction(np.array([0.47, 0]), np.array([0, 8.17]), 0.0001, 30000, 0.01)
 plt.figure(5)
+plt.title("Vx vs. Time (Relativistic)")
+plt.xlabel("Time (yr)")
+plt.ylabel("Velocity (AU/yr)")
+plt.plot(t_c, v_c[0, :])
+plt.figure(6)
+plt.title("Vy vs. Time (Relativistic)")
+plt.xlabel("Time (yr)")
+plt.ylabel("Velocity (AU/yr)")
+plt.plot(t_c, v_c[1, :])
+plt.figure(7)
 plt.axis("equal")
-plt.title("Orbit of Mercury with 1st reletavistic correction")
+plt.title("Orbit of Mercury (Relativistic)")
 plt.xlabel("x position (AU)")
 plt.ylabel("y position (AU)")
 plt.plot(x_c[0, :], x_c[1, :])
+plt.figure(8)
+plt.title("Angular Momentum over Time (Relativistic)")
+plt.xlabel("Time (yr)")
+plt.ylabel("Angular momentum (AU^2 yr^{-1} * Mercury Mass)")
+plt.plot(t_c, apply_vector_to_scalar(x_c, np.linalg.norm) * apply_vector_to_scalar(v_c, np.linalg.norm))
+
+# r = apply_vector_to_scalar(x, np.linalg.norm)
+# a = (np.min(r) + np.max(r)) / 2
+# print(1 - np.min(r) / a)
