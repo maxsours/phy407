@@ -72,10 +72,16 @@ x5, p5 = insect_pop(0.10001, 3.8, 50)
 plt.plot(p4, x4, label = "x0 = 0.1")
 plt.plot(p5, x5, label = "x0 = 0.10001")
 plt.legend()
+plt.title("Population Graphs for two initial conditions with r = 3.8")
+plt.xlabel("Iterations")
+plt.ylabel("Normalized Population")
 
 plt.figure(4)
-plt.semilogy(p4, np.abs(x4 - x5), label="Difference in plots")
+plt.semilogy(p4, np.abs(x4 - x5), label="Measured Difference")
 a = 0.00001
 y = 0.45
-plt.semilogy(p4[:24], a * np.exp(y * p4[:24]), label = "Exponential Fit")
+plt.semilogy(p4[:24], a * np.exp(y * p4[:24]), label = "Exponential Fit - a = {0}, y = {1}".format(a, y))
 plt.legend()
+plt.title("Difference in Plots over Several Iterations")
+plt.xlabel("Iterations")
+plt.ylabel("Difference in Normalized Population")
