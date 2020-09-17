@@ -45,6 +45,7 @@ def insect_pop(x_0, r, p_max):
         x[i + 1] = r * x[i] * (1 - x[i])
     return x, np.array(range(p_max))
 
+plt.figure(1)
 x1, p1 = insect_pop(0.1, 2, 50)
 plt.plot(p1, x1, label="r = 2")
 x2, p2 = insect_pop(0.1, 3, 50)
@@ -55,3 +56,26 @@ plt.legend()
 plt.title("Insect Population for Various Growth Rates")
 plt.xlabel("Number of Years")
 plt.ylabel("Population of insects (as a fraction of max population)")
+
+plt.figure(2)
+for r in np.arange(2, 4, 0.005):
+    x, p = insect_pop(0.1, r, 2000)
+    length = 100 if r < 3 else 1000
+    plt.plot(r*np.ones(length), x[-length:], "k.", markersize = 0.1)
+    plt.title("Bifurcation Diagram")
+    plt.xlabel("Maximum Growth Rate")
+    plt.ylabel("Normalized Population")
+    
+plt.figure(3)
+x4, p4 = insect_pop(0.1, 3.8, 50)
+x5, p5 = insect_pop(0.10001, 3.8, 50)
+plt.plot(p4, x4, label = "x0 = 0.1")
+plt.plot(p5, x5, label = "x0 = 0.10001")
+plt.legend()
+
+plt.figure(4)
+plt.semilogy(p4, np.abs(x4 - x5), label="Difference in plots")
+a = 0.00001
+y = 0.45
+plt.semilogy(p4[:24], a * np.exp(y * p4[:24]), label = "Exponential Fit")
+plt.legend()
