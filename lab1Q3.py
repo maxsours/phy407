@@ -53,3 +53,11 @@ start2 = time()
 for i in range(N):
       C= np.dot(A,B)
       print(C)
+# here are lines indented in the for loop
+# here are more lines indented in the for loop
+# save the end time
+end2=time()
+# the difference is the elapsed time (in seconds)
+diff2=end2-start2
+
+print (diff2)'''
