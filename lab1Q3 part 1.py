@@ -7,64 +7,41 @@ Created on Wed Sep 16 10:46:48 2020
 
 import numpy as np
 import matplotlib.pyplot as plt
-from time import time # import the "time" function from the "time" module
+from time import time 
 
 '''
 psuedo code
 A and B will be two constant matrices, with  N colums and rows, the marices will be created using numpy.ones.
 A will be a NxN matrix made of 3
 B will be a NxN matrix made of 5
-
+N is selected to be 200, we're using a for loop to run the through every value of N from 0 to 200, 
+in every iteration the for loop will save the time it took to run each iteration, 
+and save it onto a list that will be used to plot the N vs Time plot. 
+The for loop also multiplies the metrices A and B to Get the matrix C for every value of N.
+using matpltlib the N over Time is plotted, the slope of the graph is the speed of the program
 '''
+N = 200 #size of the matrix
+N1 = [0] #list to plot the y-axis
+A = np.ones([N, N], float)*3 #the matrix A
+B = np.ones([N, N], float)*5 #the matrix B
 
-N = 200
-N1 = [1]
-A = np.ones([N, N], float)*3
-B = np.ones([N, N], float)*5
-
-# save start time
-start1 = time()
-# run your calculation
-T = [start1] 
-C = np.zeros([N,N] ,float)
-#print (T)
+start1 = time() #saves the start time
+T = [start1] #list to plot the x-axis
+C = np.zeros([N,N] ,float) #defining the Matrix C
+#for loop to run the calculation
 for i in range(N):
     for j in range(N):
         for k in range(N):
-            C[i,j] += A[i,k]*B[k,j] 
-            T.append(time())
-            N1.append(i)
-            #print (C)
-            #print (T)
-end1=time()
-# the difference is the elapsed time (in seconds)
-diff1 = (end1-start1)
-
-#T1 = np.arange(start1, end1, 0.01)
-
-#print (T1)
-plt.plot(T, N1)
+            C[i,j] += A[i,k]*B[k,j] #multiplies the matrix for 0-200
+            T.append(time()) #adds to the list everytime the for loop runs
+            N1.append(i) #adds to the list everytime the for loop runs
+end1=time() #saves the end time
+diff1 = (end1-start1) # the time it took for the function to run
+slope = n/diff1
+print (slope)
+plt.plot(T, N1) #plots the graph
 plt.xlabel('time')
 plt.ylabel('N')
-plt.savefig('N over time2.png')
+plt.savefig('N over Time 1.png')
 plt.show()
 
-
-# save start time
-start2 = time()
-# run your calculation
-for i in range(N):
-      C= np.dot(A,B)
-      T.append(time())
-      N1.append(i)
-      #print(C)
-
-
-# here are lines indented in the for loop
-# here are more lines indented in the for loop
-# save the end time
-end2=time()
-# the difference is the elapsed time (in seconds)
-diff2=end2-start2
-
-print (diff2)
