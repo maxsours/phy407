@@ -2,14 +2,11 @@
 """
 Created on Thu Sep 17 18:43:33 2020
 
-@author: stone
+@author: Anntara Khan, Max Sours
 """
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 from time import time # import the "time" function from the "time" module
-
 '''
 psuedo code
 A and B will be two constant matrices, with  N colums and rows, the marices will be created using numpy.ones.
