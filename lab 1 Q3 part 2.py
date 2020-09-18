@@ -33,7 +33,7 @@ for i in range(N):
 end1 = time() #saves the end time
 diff1 = (end1-start1) # the time it took for the function to run
 slope = n/diff1 #calculates the slope aka the speed of the program
-print (slope) #prints the value of the slope
+print (slope) #prints the value of the slopeprint ("therefore the speed of numpy dot is ", slope, "iterations per second") #prints the value of the slope
 plt.plot(T, N1) #plots the graph
 plt.xlabel('time')
 plt.ylabel('N')
