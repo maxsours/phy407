@@ -2,7 +2,7 @@
 """
 Created on Wed Sep 16 10:46:48 2020
 
-@author: Anntara Khan, Max Sours
+@author: Anntara Khan(1002321891), Max Sours
 """
 import numpy as np
 import matplotlib.pyplot as plt
