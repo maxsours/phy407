@@ -35,6 +35,7 @@ diff1 = (end1-start1) # the time it took for the function to run
 slope = n/diff1 #calculates the slope aka the speed of the program
 print ("therefore the speed of numpy dot is ", slope, "iterations per second") #prints the value of the slope
 plt.plot(T, N1) #plots the graph
+plt.title('N over Time (N over Time (numpy.dot))')
 plt.xlabel('time')
 plt.ylabel('N')
 plt.savefig('N over Time (npdot).png')
