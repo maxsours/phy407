@@ -37,7 +37,7 @@ for i in range(N):
             N1.append(i) #adds to the list everytime the for loop runs
 end1=time() #saves the end time
 diff1 = (end1-start1) # the time it took for the function to run
-slope = n/diff1 #calculates the slope aka the speed of the program
+slope = N/diff1 #calculates the slope aka the speed of the program
 print (slope) #prints the value of the slope
 plt.plot(T, N1) #plots the graph
 plt.xlabel('time')
