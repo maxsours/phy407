@@ -2,7 +2,7 @@
 """
 Created on Mon Sep 14 12:21:56 2020
 
-@author: Max Sours, Anntara Khan
+@author: Anntara Khan(1002321891), Max Sours(1003816579)
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -178,7 +178,7 @@ plt.title("Angular Momentum over Time (Relativistic)")
 plt.xlabel("Time (yr)")
 plt.ylabel("Angular momentum (AU^2 yr^{-1} * Mercury Mass)")
 plt.plot(t_c, apply_vector_to_scalar(x_c, np.linalg.norm) * apply_vector_to_scalar(v_c, np.linalg.norm))
-
+plt.show()
 # r = apply_vector_to_scalar(x, np.linalg.norm)
 # a = (np.min(r) + np.max(r)) / 2
 # print(1 - np.min(r) / a)
