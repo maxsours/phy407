@@ -11,37 +11,35 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.misc as sp
 
-h_range = np.arange(-16,0) #not sure if it shouold be 1 or 0
-
-for h in h_range:
-        
-    def func(x):
+def func(x):
         return np.exp(-x**2)
-        
-    def derive(x):
+
+def derive(x, h):
         return (func(x+h)-func(x))/h
     
-    dx1 = derive(0.5)
-    dx2 = sp.derivative(func, 0.5)
+def central_difference(x, h):
+    return (func(x+h)-func(x-h))/h
 
-    error = dx1-dx2
-    print (error)
+h_range = np.logspace(-16, 0, num = 17)
+error = []
+
 
 for h in h_range:
-        
-    def func(x):
-        return np.exp(-x**2)
-        
-    def derive(x):
-        return (func(x+h)-func(x-h))/h
     
-    dx1 = derive(0.5)
+    dx1 = derive(0.5, h)
     dx2 = sp.derivative(func, 0.5)
 
-    error2 = dx1-dx2
-    print (error)
+    error.append(dx1-dx2)
+
+for h in h_range:
     
-plt.plot(error, h_range)
+    dx1 = central_difference(0.5, h)
+    dx2 = sp.derivative(func, 0.5)
+
+    error1 = dx1-dx2
+    print (error1)
+    
+plt.semilogx(h_range, error)
 plt.plot(error1, h_range)
 plt.show
 

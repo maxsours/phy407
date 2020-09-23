@@ -83,27 +83,28 @@ def time_code(func, n):
     end = time()
     return (end - start) / n
 
-dawson_traprule = lambda x, N: np.exp(-1 * x ** 2) * traprule(0, x, lambda t: np.exp(t ** 2), N)
-dawson_simprule = lambda x, N: np.exp(-1 * x ** 2) * simprule(0, x, lambda t: np.exp(t ** 2), N)
-print("Q2a i:")
-print("Trapezoid Rule:", dawson_traprule(4, 8))
-print("Simpson's Rule:", dawson_simprule(4, 8))
-print("Exact Value:", scis.dawsn(4))
-print("")
-print("Q2a ii:")
-Nt = 200000
-Ns = 1000
-print("Trapezoid Rule Error: ", dawson_traprule(4, Nt) - scis.dawsn(4))
-print("Number of Slices:", Nt)
-
-print("Simpson's Rule Error:", dawson_simprule(4, Ns) - scis.dawsn(4))
-print("Number of Slices:", Ns)
-
-print("Traprule Time:", time_code(lambda: dawson_traprule(4, Nt), 10))
-print("Simprule Time:", time_code(lambda: dawson_simprule(4, Ns), 10))
-print("Scipy Function Time:", time_code(lambda: scis.dawsn(4), 1000))
-
-print("")
-print("Q2a iii:")
-print("Traprule Error for N = 64:", np.abs(dawson_traprule(4, 32) - dawson_traprule(4, 64)) / 3)
-print("Simprule Error for N = 64:", np.abs(dawson_simprule(4, 32) - dawson_simprule(4, 64)) / 15)
+if __name__ == "__main__":
+    dawson_traprule = lambda x, N: np.exp(-1 * x ** 2) * traprule(0, x, lambda t: np.exp(t ** 2), N)
+    dawson_simprule = lambda x, N: np.exp(-1 * x ** 2) * simprule(0, x, lambda t: np.exp(t ** 2), N)
+    print("Q2a i:")
+    print("Trapezoid Rule:", dawson_traprule(4, 8))
+    print("Simpson's Rule:", dawson_simprule(4, 8))
+    print("Exact Value:", scis.dawsn(4))
+    print("")
+    print("Q2a ii:")
+    Nt = 200000
+    Ns = 1000
+    print("Trapezoid Rule Error: ", dawson_traprule(4, Nt) - scis.dawsn(4))
+    print("Number of Slices:", Nt)
+    
+    print("Simpson's Rule Error:", dawson_simprule(4, Ns) - scis.dawsn(4))
+    print("Number of Slices:", Ns)
+    
+    print("Traprule Time:", time_code(lambda: dawson_traprule(4, Nt), 10))
+    print("Simprule Time:", time_code(lambda: dawson_simprule(4, Ns), 10))
+    print("Scipy Function Time:", time_code(lambda: scis.dawsn(4), 1000))
+    
+    print("")
+    print("Q2a iii:")
+    print("Traprule Error for N = 64:", np.abs(dawson_traprule(4, 32) - dawson_traprule(4, 64)) / 3)
+    print("Simprule Error for N = 64:", np.abs(dawson_simprule(4, 32) - dawson_simprule(4, 64)) / 15)
