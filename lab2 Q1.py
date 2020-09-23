@@ -11,6 +11,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.misc as sp
 
+DX = -np.exp(-(.5)**3)
+
 def func(x):
         return np.exp(-x**2)
 
@@ -26,22 +28,18 @@ error = []
 
 for h in h_range:
     
-    dx1 = derive(0.5, h_range)
-    dx2 = sp.derivative(func, 0.5)
-
-    error.append(dx1-dx2)
+    dx1 = derive(0.5, h)
+    error.append(dx1-DX)
 
 for h in h_range:
     
     dx1 = central_difference(0.5, h_range)
-    dx2 = sp.derivative(func, 0.5)
-
-    error1 = dx1-dx2
-    print (error1)
+    error1 = dx1-DX
     
-plt.semilogx(h_range, error)
+plt.loglog(h_range, error)
 plt.plot(error1, h_range)
 plt.show
+
 
 
 
