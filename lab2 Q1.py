@@ -26,14 +26,14 @@ error = []
 
 for h in h_range:
     
-    dx1 = derive(0.5, h)
+    dx1 = derive(0.5, h_range)
     dx2 = sp.derivative(func, 0.5)
 
     error.append(dx1-dx2)
 
 for h in h_range:
     
-    dx1 = central_difference(0.5, h)
+    dx1 = central_difference(0.5, h_range)
     dx2 = sp.derivative(func, 0.5)
 
     error1 = dx1-dx2
