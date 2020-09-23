@@ -38,6 +38,10 @@ for h in h_range:
     
 plt.loglog(h_range, error)
 plt.plot(error1, h_range)
+plt.title('comparing errors')
+plt.xlabel('steps (h)')
+plt.ylabel('error')
+plt.savefig('steps over error.png')
 plt.show
 
 
