@@ -26,9 +26,25 @@ for h in h_range:
 
     error = dx1-dx2
     print (error)
-   
+
+for h in h_range:
+        
+    def func(x):
+        return np.exp(-x**2)
+        
+    def derive(x):
+        return (func(x+h)-func(x-h))/h
+    
+    dx1 = derive(0.5)
+    dx2 = sp.derivative(func, 0.5)
+
+    error2 = dx1-dx2
+    print (error)
+    
 plt.plot(error, h_range)
+plt.plot(error1, h_range)
 plt.show
+
 
 
 
