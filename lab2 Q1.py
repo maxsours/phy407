@@ -4,7 +4,7 @@ Created on Tue Sep 22 17:38:01 2020
 
 @author: 
     Anntara Khan (1002321891)
-    Max Sours ()
+    Max Sours (1003816579)
 """
 #LAB2 QUESTION 1
 import numpy as np
