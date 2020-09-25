@@ -76,8 +76,20 @@ plt.savefig('intensity over distance.png')
 plt.show()
 
 #for the density plot
-m = len(intensity)
-array = np.zeros((m//1, m))
-for i in range (m//1):
-    array[i, :] = intensity
-plt.imshow(array)
+points = 500
+separation = 20.0
+
+# Make an array to store the heights
+I_x = np.empty([points,points] ,float) 
+for i in range(points):
+    y = separation*i
+    for j in range(points):
+        x = separation*j 
+        r = np.sqrt((x)**2+(y)**2) 
+        if r < 10**-10:
+            I_x[i,j] = (0.5/k)**2
+        else:
+            I_x[i,j] = (J(1, k*r)/(k*r))**2
+
+plt.imshow(I_x,vmax = 0.01, cmap = 'hot')
+plt.show()
