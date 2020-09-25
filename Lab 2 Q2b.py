@@ -79,17 +79,25 @@ plt.show()
 points = 500
 separation = 20.0
 
+#for the density plot
+points = 200
+separation = 10**-8
+
 # Make an array to store the heights
 I_x = np.empty([points,points] ,float) 
 for i in range(points):
-    y = separation*i
+    y = separation*(i-(points/2))
     for j in range(points):
-        x = separation*j 
+        x = separation*(j-(points/2)) 
         r = np.sqrt((x)**2+(y)**2) 
         if r < 10**-10:
-            I_x[i,j] = (0.5/k)**2
+            I_x[i,j] = (0.5)
         else:
             I_x[i,j] = (J(1, k*r)/(k*r))**2
-
+            
+plt.title("density plot")
+plt.xlabel('r')
+plt.savefig('density plot.png')
 plt.imshow(I_x,vmax = 0.01, cmap = 'hot')
 plt.show()
+        
