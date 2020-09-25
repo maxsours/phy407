@@ -49,11 +49,11 @@ for h in h_range:
 #doing the derivation, and checking the error (Q1.D)
 for h in h_range:
     dx1 = central_difference(x, h_range)
-    error1 = dx1-DX
+    error1 = abs(dx1-DX)
 
 #plotting everything togeather
 plt.loglog(h_range, error)
-plt.plot(error1, h_range)
+plt.loglog(h_range, error1)
 plt.title('comparing errors')
 plt.xlabel('steps (h)')
 plt.ylabel('error')
@@ -62,9 +62,7 @@ plt.show
 
 #prints out the value of the derivative and the error for Q1.B
 print (dx1)
-print (e)
-    
-
+print (error)
 
 
     
