@@ -137,4 +137,5 @@ if __name__ == "__main__":
     plt.imshow(image_array)
     plt.colorbar()
     plt.xticks(np.arange(0, n+1, n // 10), np.arange(-5, 6))
+    plt.show()
     

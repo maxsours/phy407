@@ -18,5 +18,4 @@ for v in range (0, 3):
     plt.xlabel('values of x')
     plt.ylabel('J(x)')
     plt.legend(['J0', 'J1', 'J2'])
-    plt.savefig('spipy bessel.png')
-    plt.show
+plt.show()

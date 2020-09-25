@@ -33,7 +33,7 @@ def derive(x, h):
 
 #defining the derivative function using central difference scheme
 def central_difference(x, h):
-    return (func(x+h)-func(x-h))/h
+    return (func(x+h)-func(x-h))/(2 * h)
 
 #creating an array for h
 h_range = np.logspace(-16, 0, num = 17)
@@ -41,28 +41,21 @@ h_range = np.logspace(-16, 0, num = 17)
 error = []
 
 #doing the derivation, and checking the error (Q1.C)
-for h in h_range:
-    dx1 = derive(x, h)
-    error.append(dx1-DX)
-    e = np.abs(error) #takes the absolute value of the error
+dx1 = derive(x, h_range)
+error = np.abs(dx1-DX)
     
 #doing the derivation, and checking the error (Q1.D)
-for h in h_range:
-    dx1 = central_difference(x, h_range)
-    error1 = abs(dx1-DX)
+dx1 = central_difference(x, h_range)
+error1 = np.abs(dx1-DX)
 
 #plotting everything togeather
-plt.loglog(h_range, error)
-plt.loglog(h_range, error1)
-plt.title('comparing errors')
+plt.loglog(h_range, error, label = "Regular Derivative")
+plt.loglog(h_range, error1, label = "Central Difference")
+plt.title('Comparing Errors')
 plt.xlabel('steps (h)')
 plt.ylabel('error')
-plt.savefig('steps over error.png')
-plt.show
-
-#prints out the value of the derivative and the error for Q1.B
-print (dx1)
-print (error)
+plt.legend()
+plt.show()
 
 
     
