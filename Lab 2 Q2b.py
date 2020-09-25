@@ -74,3 +74,10 @@ plt.xlabel('distance in the focal plane')
 plt.ylabel('intensity')
 plt.savefig('intensity over distance.png')
 plt.show()
+
+#for the density plot
+m = len(intensity)
+array = np.zeros((m//1, m))
+for i in range (m//1):
+    array[i, :] = intensity
+plt.imshow(array)
