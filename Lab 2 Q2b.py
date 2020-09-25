@@ -83,7 +83,7 @@ separation = 20.0
 points = 200
 separation = 10**-8
 
-# Make an array to store the heights
+#The following part is taken from pg 109 from the book computational physics
 I_x = np.empty([points,points] ,float) 
 for i in range(points):
     y = separation*(i-(points/2))
