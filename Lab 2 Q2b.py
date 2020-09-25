@@ -4,7 +4,6 @@ Created on Tue Sep 22 21:48:56 2020
 Anntara Khan (1002321891)
 Max Sours(1003816579)
 """
-
 #LAB 2 Q2(B)
 
 import numpy as np
@@ -28,34 +27,39 @@ def J(m,x):
 
 x = np.linspace(0, 20, 1000)
 
-for i in x:
-    J0 = J(0, i)
-    J1 = J(1, i)
-    J2 = J(2, i)
-    J0.append(J(0,i))
-    J1.append(J(1,i))
-    J2.append(J(2,i))
-# plot the points
+J0 = [J(0, i) for i in x]
+J1 = [J(1, i) for i in x]
+J2 = [J(2, i) for i in x]
 
 plt.plot(x,J0)
 plt.plot(x,J1)
 plt.plot(x,J2)
-plt.xlabel('x')
+plt.title("Bessel Function")
+plt.xlabel('values of x')
+plt.ylabel('J(x)')
 plt.legend(['J0', 'J1', 'J2'])
+plt.savefig('Bessel Function.png')
 plt.show()  
 
-for v in range (0, 3):
-    plt.plot(x, sp.jv(v, x))
+
 
 def I(r,k):
-    return ((J(1, k*r))/(k*r))**2
+    if (r <= 10**-8):
+        return (1/2*k)**2
+
+    return (J(1, k*r)/(k*r))**2
     
 l = 500 * (10**-9)
 k = (2*pi)/l
 r = np.linspace(0, 10**-6, 1000)
 
-for a in r:
-    i = I(a, k)
+intensity = [I(a, k) for a in r]
     
-plt.plot (r, i)
+plt.plot (r, intensity)
+plt.title("intensity over distance")
+plt.xlabel('distance in the focal plane')
+plt.ylabel('intensity')
+plt.savefig('intensity over distance.png')
 plt.show()
+
+
