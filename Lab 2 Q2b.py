@@ -8,7 +8,7 @@ Max Sours(1003816579)
 
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.special as sp
+from lab2Q2a import simprule
 from math import pi, cos, sin
 
 """this code will take a function J_m(x) (bessel function) and integrate it 
@@ -17,17 +17,11 @@ the first 3 bessel functions are then plotted in a graph.
 """
 #defining the finction J  that calculates the value of the bessel function 
 def J(m,x):
-   def J_m(r): #defining the Bessel function
-       return cos((m * r) - (x * sin(r)))
+   J_m = lambda r: cos((m * r) - (x * sin(r))) #Function to be integrated
    n = 1000 
    x_0 = 0.0
    x_f = pi
-   h = (x_f - x_0) / n
-   def simprule(lower, upper, func, slices): #defining the function for integration (taken from Q2.A)
-       s1 = np.sum([J_m(x) for x in np.arange(x_0 + h, x_f, 2 * h)])
-       s2 = np.sum([J_m(x) for x in np.arange(x_0 + 2 * h, x_f, 2 * h)])
-       return h / 3 * (J_m(x_f) + J_m(x_0) + 4 * s1 + 2 * s2)
-   return (simprule(x_0, x_f, J_m, h))/pi    
+   return (simprule(x_0, x_f, J_m, n))/pi    
 
 x = np.linspace(0, 20, 1000) #1000 points between 0 to 20
 
@@ -43,7 +37,6 @@ plt.title("Bessel Function")
 plt.xlabel('values of x')
 plt.ylabel('J(x)')
 plt.legend(['J0', 'J1', 'J2'])
-plt.savefig('Bessel Function.png')
 plt.show()  
 
 """
@@ -72,12 +65,7 @@ plt.plot (r, intensity)
 plt.title("intensity over distance")
 plt.xlabel('distance in the focal plane')
 plt.ylabel('intensity')
-plt.savefig('intensity over distance.png')
 plt.show()
-
-#for the density plot
-points = 500
-separation = 20.0
 
 #for the density plot
 points = 200
@@ -89,15 +77,11 @@ for i in range(points):
     y = separation*(i-(points/2))
     for j in range(points):
         x = separation*(j-(points/2)) 
-        r = np.sqrt((x)**2+(y)**2) 
-        if r < 10**-10:
-            I_x[i,j] = (0.5)
-        else:
-            I_x[i,j] = (J(1, k*r)/(k*r))**2
+        r = np.sqrt((x)**2+(y)**2)
+        I_x[i,j] = I(r, k)
             
-plt.title("density plot")
-plt.xlabel('r')
-plt.savefig('density plot.png')
+plt.title("Density Plot of Intensity")
 plt.imshow(I_x,vmax = 0.01, cmap = 'hot')
+plt.colorbar()
 plt.show()
         
