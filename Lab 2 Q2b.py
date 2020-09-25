@@ -27,7 +27,7 @@ def J(m,x):
        s1 = np.sum([J_m(x) for x in np.arange(x_0 + h, x_f, 2 * h)])
        s2 = np.sum([J_m(x) for x in np.arange(x_0 + 2 * h, x_f, 2 * h)])
        return h / 3 * (J_m(x_f) + J_m(x_0) + 4 * s1 + 2 * s2)
-   return simprule(x_0, x_f, J_m, h)
+   return (simprule(x_0, x_f, J_m, h))/pi    
 
 x = np.linspace(0, 20, 1000) #1000 points between 0 to 20
 
