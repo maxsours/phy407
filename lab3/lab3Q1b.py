@@ -19,6 +19,7 @@ def P(u_10, T_a, t_h):
     return 1 / (np.sqrt(2 * np.pi) * delta) * I
 
 if __name__ == "__main__":
+    # Implemented as shown in the computational background of this lab
     plt.clf()
     u_10s = (6, 8, 10)
     colours = ('r','g', 'b')
@@ -29,10 +30,12 @@ if __name__ == "__main__":
         for (t_h, line) in zip(t_hs, lines):
             plot_str = colour + line
             plt.plot(T_a, P(u_10, T_a, t_h), plot_str)
+            # Record the temperature of greatest probability of blown snow
             print("Max Temp for (" + str(u_10) + ", " + str(t_h) + ") is", T_a[np.where(P(u_10, T_a, t_h) == np.max(P(u_10, T_a, t_h)))[0][0]])
     plt.title("Probability of blown snow as a function of Temperature")
     plt.xlabel("Temperature (deg C)")
     plt.ylabel("Probability of Blown Snow")
+    # This code will make a custom legend that shows which color and linestyle corresponds with which variable
     custom_lines = [Line2D([0], [0], color='b', lw=8),
                 Line2D([0], [0], color='g', lw=8),
                 Line2D([0], [0], color='r', lw=8),

@@ -52,6 +52,7 @@ def read_elevation(filepath):
     elev_array = np.zeros((N, N))
     grad_array = np.zeros((N, N, 2))
     I_array = np.zeros((N, N))
+    # Read the elevation data as described in Question 3, and store in the elvation array
     f = open(filepath, "rb")
     for i in range(N):
         for j in range(N):
@@ -59,8 +60,10 @@ def read_elevation(filepath):
             val = struct.unpack(">h", buf)[0]
             elev_array[i][j] = val
     f.close()
+    # Populate the gradient array
     for i in range(N):
         for j in range(N):
+            #This if statements handle the border cases
             if j == 0:
                 grad_array[i][j][0] = (elev_array[i][j+1] - elev_array[i][j]) / h
             elif j == N - 1:
@@ -75,6 +78,7 @@ def read_elevation(filepath):
             else:
                 grad_array[i][j][1] = (elev_array[i-1][j] - elev_array[i+1][j]) / (2 * h)
     
+    # Populate intensities
     for i in range(N):
         for j in range(N):
             denom = np.sqrt(grad_array[i][j][0] ** 2 + grad_array[i][j][1] ** 2 + 1)
@@ -86,6 +90,12 @@ def read_elevation(filepath):
 if __name__ == "__main__":
     elev_array, I_array = read_elevation("N46E006.hgt")
     plt.figure(1)
-    plt.imshow(elev_array, cmap="gray")
+    plt.title("Elevation Map of Lake Geneva")
+    plt.imshow(elev_array, vmin = 0, cmap="gray") #vmin needs to be set to 0 since the incorrect measurements record as a large negative number
+    plt.colorbar()
     plt.figure(2)
+    plt.title("Intensity Map of Lake Geneva")
     plt.imshow(I_array, cmap = "gray")
+    plt.figure(3)
+    plt.title("Zoomed in on Evian")
+    plt.imshow(I_array[700:900, 600:800], cmap = "gray")
