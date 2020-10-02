@@ -4,6 +4,10 @@ Created on Thu Oct  1 14:41:16 2020
 
 @author: Max Sours, Anntara Khan
 """
+import struct
+import numpy as np
+import matplotlib.pyplot as plt
+
 """
 PSEUDOCODE
 
@@ -15,24 +19,73 @@ function READ_ELEV(filepath):
         store val in next open slot of elev_array
     for val in elev_array:
         let grad be a 2-D vector
-        if val is on north border:
-            grad.x = (val - south(val)) / dist
-            grad.y = central_difference(east(val), west(val))
-        if val on south border:
-            grad.x = (north(val) - val) / dist
-            grad.y = central_difference(east(val), west(val))
+        
         if val on west border:
-            grad.x = central_difference(north(val), south(val))
-            grad.y = (east(val) - val) / dist
+            grad.x = (east(val) - val) / dist
         if val on east border:
-            grad.x = central_difference(north(val), south(val))
-            grad.y = (val - west(val)) / dist
+            grad.x = (val - west(val)) / dist
         otherwise:
-            grad.x = central_difference(north(val), south(val))
-            grad.y = central_difference(east(val), west(val))
+            grad.x = central_difference(east(val), west(val))
+        
+        if val is on north border:
+            grad.y = (val - south(val)) / dist
+        if val on south border:
+            grad.y = (north(val) - val) / dist
+        otherwise:
+            grad.y = central_difference(north(val), south(val))
+            
         store grad in next open slot of grad_array
     
     calculate I = -(cos(theta)(dw/dx) + sin(theta)(dw/dy)) / sqrt((dw/dx)^2 + (dw/dy)^2 + 1)
     plot2D(elev_array)
     plot2D(I)
 """
+
+def read_elevation(filepath):
+    """
+    Read elevation data from filepath, then output arrays of elevation and
+    intensity data.
+    """
+    h = 83 #distance between elevation measures
+    N = 1201
+    theta = np.pi / 6
+    elev_array = np.zeros((N, N))
+    grad_array = np.zeros((N, N, 2))
+    I_array = np.zeros((N, N))
+    f = open(filepath, "rb")
+    for i in range(N):
+        for j in range(N):
+            buf = f.read(2)
+            val = struct.unpack(">h", buf)[0]
+            elev_array[i][j] = val
+    f.close()
+    for i in range(N):
+        for j in range(N):
+            if j == 0:
+                grad_array[i][j][0] = (elev_array[i][j+1] - elev_array[i][j]) / h
+            elif j == N - 1:
+                grad_array[i][j][0] = (elev_array[i][j] - elev_array[i][j-1]) / h
+            else:
+                grad_array[i][j][0] = (elev_array[i][j+1] - elev_array[i][j-1]) / (2 * h)
+            
+            if i == 0:
+                grad_array[i][j][1] = (elev_array[i][j] - elev_array[i-1][j]) / h
+            elif i == N - 1:
+                grad_array[i][j][1] = (elev_array[i-1][j] - elev_array[i][j]) / h
+            else:
+                grad_array[i][j][1] = (elev_array[i-1][j] - elev_array[i+1][j]) / (2 * h)
+    
+    for i in range(N):
+        for j in range(N):
+            denom = np.sqrt(grad_array[i][j][0] ** 2 + grad_array[i][j][1] ** 2 + 1)
+            numer = np.cos(theta) * grad_array[i][j][0] + np.sin(theta) * grad_array[i][j][1]
+            I_array[i][j] = -1 * numer / denom
+    
+    return elev_array, I_array
+
+if __name__ == "__main__":
+    elev_array, I_array = read_elevation("N46E006.hgt")
+    plt.figure(1)
+    plt.imshow(elev_array, cmap="gray")
+    plt.figure(2)
+    plt.imshow(I_array, cmap = "gray")
