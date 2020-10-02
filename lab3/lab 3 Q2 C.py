@@ -31,7 +31,7 @@ def E(n, x):
     
     for k in range(N):
         for i in range(z):
-            s += w[k]*psi_x(z, x[k])
+            s1 += w[k]*psi_x(z, x[k])
     
     print(s1)
     
@@ -55,10 +55,11 @@ def E(n, x):
         
         for k in range(N):
             for i in range(z):
-                s += w[k]*psi_p(z, x[k])
+                s2 += w[k]*psi_p(z, x[k])
         
         print(s2)
-    
+    return (psi_x + psi_p)
+print (E)
 
 
 
