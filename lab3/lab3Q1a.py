@@ -88,9 +88,11 @@ def simprule(lower, upper, func, slices):
 
 
 if __name__ == "__main__":
+    # Construct functions created by each method of integration
     dawson_traprule = lambda x, N: np.exp(-1 * x ** 2) * traprule(0, x, lambda t: np.exp(t ** 2), N)
     dawson_simprule = lambda x, N: np.exp(-1 * x ** 2) * simprule(0, x, lambda t: np.exp(t ** 2), N)
     dawson_quadrature = lambda x, N: np.exp(-1 * x ** 2) * gaussian_quadrature(lambda t: np.exp(t ** 2), 0, x, N)
+    # Construct lists for each error
     trule_err = []
     srule_err = []
     quad_err = []
@@ -98,6 +100,7 @@ if __name__ == "__main__":
     srule_rerr = []
     quad_rerr = []
     d_4 = scis.dawsn(4)
+    # Iterate over 8, 16, ..., 2048, calculate errors and store them
     for n in np.logspace(3, 11, num=9, base=2):
         n = int(n)
         print("Number of Slices =", n)
@@ -112,6 +115,7 @@ if __name__ == "__main__":
         srule_rerr.append(np.abs((dawson_simprule(4, n) - d_4) / d_4))
         quad_rerr.append(np.abs((dawson_quadrature(4, n) - d_4) / d_4))
     
+    # Plot the data
     plt.title("Comparing Error Measures for Various Integration Techniques")
     plt.loglog(np.logspace(3, 11, num=9, base=2), trule_err, label = "Traprule Error Approx")
     plt.loglog(np.logspace(3, 11, num=9, base=2), srule_err, label = "Simprule Error Approx")
