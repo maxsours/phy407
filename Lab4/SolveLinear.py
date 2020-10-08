@@ -86,5 +86,4 @@ if __name__ == "__main__":
     A = np.array([[2., 1., 4., 1.],[3., 4., -1., -1.], [1., -4., 1., 5.], [2., -2., 1., 3.]])
     v = np.array([-4., 3., 9., 7.])
     soln = PartialPivot(A, v)
-    #soln = GaussElim(A, v)
     print(soln)
