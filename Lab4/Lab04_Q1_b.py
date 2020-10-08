@@ -22,7 +22,8 @@ def time_matmul(N):
     """
     Time three different types of matrix multiplication: 
     gaussian elimation, partial pivoting, and LU factorization
-    and return the time each of them took.
+    and return the time each of them took and the error of
+    each method.
     """
     A = np.random.rand(N, N)
     v = np.random.rand(N)
@@ -31,35 +32,37 @@ def time_matmul(N):
     # such that Ax = v
     functions = [SolveLinear.GaussElim, SolveLinear.PartialPivot, solve_LU]
     times = []
-    err = 1e-3
+    errors = []
     # Iterate through the three functions, time each one, and
     # make sure they actually compute close to the right value
     for f in functions:
         start = time()
         x = f(A, v)
-        assert(np.linalg.norm(v - np.dot(A, x)) < err)
         end = time()
+        errors.append(np.linalg.norm(v - np.dot(A, x)))
         times.append(end - start)
-    return times[0], times[1], times[2]
+    return times, errors
 
 if __name__ == "__main__":
-    # Initialize arrays and lists for data storage
+    # Initialize arrays for data storage
     N = np.arange(5, 400, 5)
-    gausselim_times = []
-    partialpivot_times = []
-    lu_times = []
-    for n in N:
-        # Calculate time and then store each time in the correct list
-        gausselim_time, partialpivot_time, lu_time = time_matmul(n)
-        gausselim_times.append(gausselim_time)
-        partialpivot_times.append(partialpivot_time)
-        lu_times.append(lu_time)
+    times = np.zeros((3, (400 - 5) // 5)) #row 0 for gausselim, row 1 for partialpivot, row 2 for lu
+    errors = np.zeros(np.shape(times))
+    for i in range(len(N)):
+        # Calculate times and errors and then store each in their correct array
+        t, e = time_matmul(N[i])
+        times[:, i] = t
+        errors[:, i] = e
+    print("Average Errors:")
+    print("Gaussian Eliminaiton:", np.mean(errors[0, :]))
+    print("Partial Pivots:", np.mean(errors[1, :]))
+    print("Lu Factorization:", np.mean(errors[2, :]))
     # Plot the data
     plt.title("Solving Linear Equations Using Different Methods")
     plt.xlabel("N")
     plt.ylabel("Time (sec)")
-    plt.loglog(N, gausselim_times, label="Gaussian Elimination")
-    plt.loglog(N, partialpivot_times, label = "Partial Pivoting")
-    plt.loglog(N, lu_times, label = "LU Factorization")
+    plt.loglog(N, times[0, :], label="Gaussian Elimination")
+    plt.loglog(N, times[1, :], label = "Partial Pivoting")
+    plt.loglog(N, times[2, :], label = "LU Factorization")
     plt.legend()
     plt.show()
