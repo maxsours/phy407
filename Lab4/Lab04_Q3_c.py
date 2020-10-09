@@ -155,7 +155,7 @@ def relaxation_method(f, x0, error):
         # 0 = -f(x)
         # x = -f(x) + x
         # This last equation is stable, unlike the obvious
-        # transformation of x = f(x) + x
+        # fixed point equation of x = f(x) + x
         x = -1 * f(x) + x
         count += 1
     return x, count
