@@ -172,14 +172,14 @@ def print_methods(x0):
     
 
 if __name__ == "__main__":
-    # Part b of the exersize
+    # Part b of the exercise
     print("For x0 = 5:")
     print_methods(5)
     print("For x0 = 100:")
     print_methods(100)
     print("For x0 = 10^10:")
     print_methods(1e10)
-    # Part c of exersize
+    # Part c of exercise
     x, _ = newtons_method(f, df, 3, 1e-6)
     h = 6.62e-34
     c = 3e8
