@@ -20,7 +20,7 @@ dow_fft[len(dow_fft) // 50:] = 0  # Set all but top 2% of terms to 0
 smoothed_dow2 = np.fft.irfft(dow_fft) # Get the inverse transform with top 2% of terms
 
 #This is the plotting code
-plt.plot(range(len(dow)), dow, label = "Dow Data")
+plt.plot(range(len(dow)), dow, ":", label = "Dow Data")
 plt.plot(range(len(smoothed_dow10)), smoothed_dow10, label = "Smoothed Dow (10%)")
 plt.plot(range(len(smoothed_dow2)), smoothed_dow2, label = "Smoothed Dow (2%)")
 plt.title("Dow from late 2006 to Dec 31 2010")
