@@ -75,10 +75,10 @@ def A(a, x):
     This is a helper function that computes the acceleration
     of n particles for each particle
     """
-    _, n = x.shape()
-    result = np.empty(x.shape())
+    _, n = x.shape
+    result = np.empty(x.shape)
     for i in range(n):
-        result[:, i] = np.sum([a(x[:, i] - x[:, j]) for j in range(n) if i != j])
+        result[:, i] = np.sum([a(x[:, i] - x[:, j]) for j in range(n) if i != j], axis=0)
     return result
 
 def plot_particles(a, x0, dt, m):
@@ -105,19 +105,24 @@ def plot_particles(a, x0, dt, m):
     2xnxm array of floats
         Velocities of n particles over time
     """
-    _, n = x0.shape()
+    _, n = x0.shape
     x = np.empty((2, n, m))
     v = np.zeros((2, n, m))
-    x[:, :, 0] = x0;
+    x[:, :, 0] = x0; # initial verlet step
     v_temp = A(a, x[:, :, 0]) * 0.5 * dt
-    for i in range(1, m):
+    for i in range(1, m): #do verlet steps
         x[:, :, i] = x[:, :, i - 1] + v_temp * dt
         k = A(a, x[:, :, i]) * dt
         v[:, :, i] = v_temp + k / 2
         v_temp = v_temp + k
     return x, v
 
-radius = np.zeroes([2, 100])
+if __name__ == "__main__":
+    n = 2
+    x0 = np.array([[2, 3], [3.5, 4.4]]).transpose()
+    x, v = plot_particles(LJ_accel, x0, 0.01, 100)
+    for i in range(n):
+        plt.plot(x[0, i, :], x[1, i, :], ".")
 
 
 
