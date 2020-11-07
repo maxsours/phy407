@@ -61,7 +61,13 @@ while t < tend:
         eta = np.copy(etanew)
         u = np.copy(unew)
     if np.any(np.abs(t-tplot)) < 1e-6:
+        plt.clf()
+        plt.title("shallow water waves")
+        plt.xlabel("x")
+        Plt.ylabel("eta")
         plt.plot(x, eta)
+        plt.draw()
+        plt.pause(0.01)
         
     t = t + h
         
