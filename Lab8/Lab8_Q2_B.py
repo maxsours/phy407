@@ -47,7 +47,12 @@ t = 0
 tend = 5 #not sure
 tplot = np.array([0,1,4])
 while t < tend:
-    
+        for j in range (1, J-1):
+        fact4 = h / (2 * dx)
+        fact5 = h/ dx
+        
+        #boundary condititons
+        if n == 0:
 
     ## boundary conditions for eta with forward/backwards difference
     eta1[0]  = eta1[0] - (h / dx) * (F[1][1] - F[1][0])
@@ -64,7 +69,7 @@ while t < tend:
         plt.clf()
         plt.title("shallow water waves")
         plt.xlabel("x")
-        Plt.ylabel("eta")
+        plt.ylabel("eta")
         plt.plot(x, eta)
         plt.draw()
         plt.pause(0.01)
