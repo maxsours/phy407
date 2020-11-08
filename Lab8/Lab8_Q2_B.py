@@ -78,8 +78,8 @@ while t <= tend:
     if np.any(np.abs(t-tplot) < 1e-6):
         plt.clf()
         plt.title("shallow water waves")
-        plt.xlabel("x")
-        plt.ylabel("eta")
+        plt.xlabel("x (m)")
+        plt.ylabel("eta (m/s)")
         plt.plot(x, v[1, :])
         plt.draw()
         plt.pause(0.01)
