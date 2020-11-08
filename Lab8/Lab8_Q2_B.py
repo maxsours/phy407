@@ -30,7 +30,9 @@ fact2 = sigma**2
 fact3 = fact1/fact2
 A_exp = A*np.exp(fact3)
 eta_0 = H + A_exp - np.mean(A_exp)
-u_0, u_f = 0, 0
+v_0 = np.empty((2, N))
+v_0[0, :] = np.zeros(N) #u_0
+v_0[1, :] = eta_0
 
 # Intitiallize arrays
 u = np.zeros(J)
@@ -61,47 +63,27 @@ def next_v(v_curr, dt, dx):
         Next values for v = (u, eta)
     """
     v_next = np.zeros(v_curr.shape)
-    v_next[1, 0] = v_curr[1, 0] - dt / dx * (F(V_curr[:, 1]) - F(V_curr[:, 0]))[1]
-    v_next[1, N - 1] = v_curr[1, N - 1] - dt / dx * (F(V_curr[:, N - 1]) - F(V_curr[:, N - 2]))[1]
+    v_next[1, 0] = v_curr[1, 0] - dt / dx * (F(v_curr[:, 1]) - F(v_curr[:, 0]))[1]
+    v_next[1, N - 1] = v_curr[1, N - 1] - dt / dx * (F(v_curr[:, N - 1]) - F(v_curr[:, N - 2]))[1]
     for i in range(1, N-1):
-        v_next[:, i] = v_curr[:, i] - dt / (2 * dx) * (F(V_curr[:, i + 1]) - F(V_curr[:, i - 1]))
+        v_next[:, i] = v_curr[:, i] - dt / (2 * dx) * (F(v_curr[:, i + 1]) - F(v_curr[:, i - 1]))
     return v_next
 
 
-t1 = 0 # [s]
-t2 = 1 # [s]
-t3 = 4 # [s]
 t = 0
-tend = 4 #not sure
+tend = 4
 tplot = np.array([0,1,4])
-while t < tend:
-    for j in range (1, J-1):
-        fact4 = h / (2 * dx)
-        fact5 = h/ dx
-        
-        #boundary condititons
-        if n == 0:
-
-    ## boundary conditions for eta with forward/backwards difference
-    eta1[0]  = eta1[0] - (h / dx) * (F[1][1] - F[1][0])
-    eta1[J]  = eta1[J] - (h / dx) * (F[1][J] - F[1][J-1])
-    
-    for j in range(0,J):
-        u_new[j] = u[j] + ... # (all in terms of u and eta)
-        eta_new[j] = eta[j] + ... # (all in terms of u and eta)
-        u_new[j]  = u_new[j] - (h / (2 * dx)) * (F[0][j+1] - F[0][j-1])
-        eta_new[j]  = eta_new[j] - (h / (2 * dx)) * (F[1][j+1] - F[1][j-1])
-        eta = np.copy(etanew)
-        u = np.copy(unew)
-    if np.any(np.abs(t-tplot)) < 1e-6:
+v = v_0
+while t <= tend:
+    if np.any(np.abs(t-tplot) < 1e-6):
         plt.clf()
         plt.title("shallow water waves")
         plt.xlabel("x")
         plt.ylabel("eta")
-        plt.plot(x, eta)
+        plt.plot(x, v[1, :])
         plt.draw()
         plt.pause(0.01)
-        
+    v = next_v(v, dt, dx)
     t = t + dt
         
         
