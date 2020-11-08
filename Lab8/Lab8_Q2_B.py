@@ -79,7 +79,7 @@ while t <= tend:
         plt.clf()
         plt.title("shallow water waves")
         plt.xlabel("x (m)")
-        plt.ylabel("eta (m/s)")
+        plt.ylabel("eta (m)")
         plt.plot(x, v[1, :])
         plt.draw()
         plt.pause(0.01)
