@@ -83,9 +83,10 @@ for i in range(N):
         elif y == Lp:
             found_edge = True
             break #stops the process when the particle reaches the edge
-        
-    i = i+1
-    print (anchoredx, anchoredy)
+        anchoredx.append(x)
+        anchoredy.append(y)
+
+    
         
 
 '''
