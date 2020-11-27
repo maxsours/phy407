@@ -54,4 +54,5 @@ def nd_sphere(n, N):
 if __name__ == "__main__":
     n = 10
     N = 1000000
-    print(nd_sphere(n, N))
+    I = nd_sphere(n, N)
+    print("Volume of 10-D sphere:", I[0], "+/-", I[1])
